@@ -113,7 +113,7 @@ apikey: aa9290ba
 
 ### O que nós não gostaríamos
 * Descobrir que não foi você quem fez seu teste
-* Ver commits grandes, sem muita explicação nas mensagens em seu repositório 
+* Ver commits grandes, sem muita explicação nas mensagens em seu repositório
 * Encontrar um um commit com as dependências de NPM
 
 ## O que avaliaremos de seu teste
