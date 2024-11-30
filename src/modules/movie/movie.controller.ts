@@ -37,6 +37,10 @@ export class MovieController {
     description: 'Anotação de filme criada com sucesso.',
     type: CreateMovieDto,
   })
+  @ApiResponse({
+    status: 400,
+    description: 'Os dados enviados são inválidos.',
+  })
   @Post()
   async createMovie(@Body() createMovieDto: CreateMovieDto) {
     return await this.movieService.createMovie(createMovieDto);
@@ -46,6 +50,10 @@ export class MovieController {
     summary: 'Lista as anotações de filmes com filtros e ordenação',
     description:
       'Permite listar as anotações de filmes com filtros e ordenação.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Os parâmetros de filtro ou paginação são inválidos.',
   })
   @Get('list')
   async listMovies(
@@ -63,6 +71,18 @@ export class MovieController {
     description:
       'Permite listar uma anotação de filme específica com base no ID fornecido.',
   })
+  @ApiOkResponse({
+    description: 'Anotação de filme encontrada.',
+    type: CreateMovieDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Anotação de filme não encontrada.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'O ID fornecido é inválido.',
+  })
   @Get(':id')
   async getMovieById(@Param('id', ParseIntPipe) id: number) {
     return this.movieService.getMovieById(id);
@@ -76,6 +96,14 @@ export class MovieController {
   @ApiOkResponse({
     description: 'Anotação de filme atualizada com sucesso.',
     type: UpdateMovieDto,
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Anotação de filme não encontrada.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Os dados enviados são inválidos ou incompletos.',
   })
   @Put(':id')
   async updateMovie(

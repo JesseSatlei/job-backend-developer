@@ -24,7 +24,7 @@ async function bootstrap() {
 
   const swaggerConfig = createSwaggerConfig();
   const document = NestSwaggerModule.createDocument(app, swaggerConfig);
-  NestSwaggerModule.setup('api', app, document);
+  NestSwaggerModule.setup('docs', app, document);
 
   await app.listen(3000);
 }
