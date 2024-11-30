@@ -5,6 +5,7 @@ import { MovieFetcher } from '@/infra/fetchers/movie.fetcher';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
+import { NotFoundException } from '@/common/exceptions/not-found.exception';
 
 @Injectable()
 export class MovieService {
@@ -38,6 +39,12 @@ export class MovieService {
   }
 
   async getMovieById(id: number): Promise<Movie> {
-    return this.movieRepository.findMovieById(id);
+    const movie = await this.movieRepository.findMovieById(id);
+
+    if (!movie) {
+      throw new NotFoundException();
+    }
+
+    return movie;
   }
 }
