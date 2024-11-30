@@ -63,4 +63,14 @@ export class MovieService {
 
     return this.movieRepository.saveMovie(movie);
   }
+
+  async deleteMovie(id: number): Promise<void> {
+    const movie = await this.movieRepository.findMovieById(id);
+
+    if (!movie) {
+      throw new NotFoundException();
+    }
+
+    await this.movieRepository.remove(movie);
+  }
 }

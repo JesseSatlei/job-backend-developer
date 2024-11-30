@@ -1,10 +1,21 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
   ApiOperation,
+  ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import { MovieFiltersDto } from './dto/movie-filters.dto';
@@ -49,7 +60,7 @@ export class MovieController {
       'Permite listar uma anotação de filme específica com base no ID fornecido.',
   })
   @Get(':id')
-  async getMovieById(@Param('id') id: number) {
+  async getMovieById(@Param('id', ParseIntPipe) id: number) {
     return this.movieService.getMovieById(id);
   }
 
@@ -64,9 +75,26 @@ export class MovieController {
   })
   @Put(':id')
   async updateMovie(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateMovieDto: UpdateMovieDto,
   ) {
     return await this.movieService.updateMovie(id, updateMovieDto);
+  }
+
+  @ApiOperation({
+    summary: 'Deleta uma anotação de filme',
+    description: 'Permite deletar uma anotação de filme com base no ID.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Anotação de filme deletada com sucesso.',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Filme não encontrado.',
+  })
+  @Delete(':id')
+  async deleteMovie(@Param('id', ParseIntPipe) id: number) {
+    return await this.movieService.deleteMovie(id);
   }
 }

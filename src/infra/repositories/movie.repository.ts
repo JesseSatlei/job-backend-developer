@@ -47,4 +47,8 @@ export class MovieRepository {
   async findMovieById(id: number): Promise<Movie> {
     return this.movieRepository.findOne({ where: { id } });
   }
+
+  async remove(movie: Movie): Promise<void> {
+    await this.movieRepository.remove(movie);
+  }
 }
