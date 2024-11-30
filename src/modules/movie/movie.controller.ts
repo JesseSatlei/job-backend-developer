@@ -1,9 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
-import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @ApiTags('Movies')
 @Controller('movie-reviews')
@@ -45,5 +51,22 @@ export class MovieController {
   @Get(':id')
   async getMovieById(@Param('id') id: number) {
     return this.movieService.getMovieById(id);
+  }
+
+  @ApiOperation({
+    summary: 'Atualiza uma anotação de filme existente',
+    description:
+      'Permite atualizar os detalhes de uma anotação de filme existente.',
+  })
+  @ApiOkResponse({
+    description: 'Anotação de filme atualizada com sucesso.',
+    type: UpdateMovieDto,
+  })
+  @Put(':id')
+  async updateMovie(
+    @Param('id') id: number,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
+    return await this.movieService.updateMovie(id, updateMovieDto);
   }
 }

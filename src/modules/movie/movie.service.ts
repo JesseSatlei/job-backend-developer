@@ -6,6 +6,7 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
 import { NotFoundException } from '@/common/exceptions/not-found.exception';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 @Injectable()
 export class MovieService {
@@ -46,5 +47,20 @@ export class MovieService {
     }
 
     return movie;
+  }
+
+  async updateMovie(
+    id: number,
+    updateMovieDto: UpdateMovieDto,
+  ): Promise<Movie> {
+    const movie = await this.movieRepository.findMovieById(id);
+
+    if (!movie) {
+      throw new NotFoundException();
+    }
+
+    Object.assign(movie, updateMovieDto);
+
+    return this.movieRepository.saveMovie(movie);
   }
 }
