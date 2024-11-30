@@ -15,10 +15,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message = exception.getResponse();
 
     const statusCode = status || HttpStatus.INTERNAL_SERVER_ERROR;
+    const errorMessage =
+      typeof message === 'string'
+        ? message
+        : message['message'] || 'Internal Server Error';
 
     response.status(statusCode).json({
       statusCode,
-      message,
+      message: errorMessage,
     });
   }
 }
