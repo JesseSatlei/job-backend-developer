@@ -1,3 +1,4 @@
+import { Movie } from '@/domain/movie.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 
@@ -10,7 +11,7 @@ export const databaseConfig: TypeOrmModuleOptions = {
   username: process.env.MYSQLDB_USER || 'root',
   password: process.env.MYSQLDB_PASSWORD || 'senha_root_123',
   database: process.env.MYSQLDB_DATABASE || 'banking',
-  entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+  entities: [Movie],
   synchronize: process.env.TYPEORM_SYNC === 'true',
   migrationsRun: true,
 };
