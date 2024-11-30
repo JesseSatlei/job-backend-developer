@@ -13,6 +13,8 @@ export class MovieRepository {
   async findMovies(
     filters?: MovieFiltersDto,
     sort?: MovieSortDto,
+    offset?: number,
+    limit?: number,
   ): Promise<Movie[]> {
     const query = this.movieRepository.createQueryBuilder('movie');
 
@@ -34,6 +36,10 @@ export class MovieRepository {
 
     if (sort?.field) {
       query.orderBy(`movie.${sort.field}`, sort.order);
+    }
+
+    if (offset !== undefined && limit !== undefined) {
+      query.skip(offset).take(limit);
     }
 
     return query.getMany();

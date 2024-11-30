@@ -35,8 +35,12 @@ export class MovieService {
   async listMovies(
     filters?: MovieFiltersDto,
     sort?: MovieSortDto,
+    page: number = 1,
+    limit: number = 5,
   ): Promise<Movie[]> {
-    return this.movieRepository.findMovies(filters, sort);
+    const offset = (page - 1) * limit;
+
+    return this.movieRepository.findMovies(filters, sort, offset, limit);
   }
 
   async getMovieById(id: number): Promise<Movie> {

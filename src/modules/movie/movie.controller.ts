@@ -21,6 +21,7 @@ import {
 import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { PaginationDto } from './dto/pagination.dto';
 
 @ApiTags('Movies')
 @Controller('movie-reviews')
@@ -46,12 +47,15 @@ export class MovieController {
     description:
       'Permite listar as anotações de filmes com filtros e ordenação.',
   })
-  @Get()
+  @Get('list')
   async listMovies(
     @Query() filters: MovieFiltersDto,
     @Query() sort: MovieSortDto,
+    @Query() pagination: PaginationDto,
   ) {
-    return this.movieService.listMovies(filters, sort);
+    const { page, limit } = pagination;
+
+    return this.movieService.listMovies(filters, sort, page, limit);
   }
 
   @ApiOperation({
