@@ -1,17 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Movie } from '../../domain/movie.entity';
-import { Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { MovieRepository } from '@/infra/repositories/movie.repository';
+import { MovieFetcher } from '@/infra/fetchers/movie.fetcher';
 import { CreateMovieDto } from './dto/create-movie.dto';
-import { MovieFetcher } from '../../infra/fetchers/movie.fetcher';
 import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
 
 @Injectable()
 export class MovieService {
   constructor(
-    @InjectRepository(Movie)
-    private readonly movieRepository: Repository<Movie>,
+    private readonly movieRepository: MovieRepository,
     private readonly movieFetcher: MovieFetcher,
   ) {}
 
@@ -20,7 +18,7 @@ export class MovieService {
 
     const omdbData = await this.movieFetcher.getMovieDetails(title);
 
-    const movie = this.movieRepository.create({
+    const movie = await this.movieRepository.saveMovie({
       title: omdbData.title,
       releaseDate: omdbData.released,
       rating: omdbData.imdbRating,
@@ -29,35 +27,13 @@ export class MovieService {
       notes,
     });
 
-    return await this.movieRepository.save(movie);
+    return movie;
   }
 
   async listMovies(
     filters?: MovieFiltersDto,
     sort?: MovieSortDto,
   ): Promise<Movie[]> {
-    const query = this.movieRepository.createQueryBuilder('movie');
-
-    if (filters?.title) {
-      query.andWhere('movie.title LIKE :title', {
-        title: `%${filters.title}%`,
-      });
-    }
-    if (filters?.actors) {
-      query.andWhere('movie.actors LIKE :actors', {
-        actors: `%${filters.actors}%`,
-      });
-    }
-    if (filters?.director) {
-      query.andWhere('movie.director LIKE :director', {
-        director: `%${filters.director}%`,
-      });
-    }
-
-    if (sort?.field) {
-      query.orderBy(`movie.${sort.field}`, sort.order);
-    }
-
-    return query.getMany();
+    return this.movieRepository.findMovies(filters, sort);
   }
 }

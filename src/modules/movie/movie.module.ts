@@ -6,10 +6,11 @@ import { MovieController } from './movie.controller';
 import { MovieFetcher } from '../../infra/fetchers/movie.fetcher';
 import { OmdbProvider } from '../../infra/providers/omdb.provider';
 import { HttpModule } from '@nestjs/axios';
+import { MovieRepository } from '@/infra/repositories/movie.repository';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Movie]), HttpModule],
   controllers: [MovieController],
-  providers: [MovieService, MovieFetcher, OmdbProvider],
+  providers: [MovieService, MovieRepository, MovieFetcher, OmdbProvider],
 })
 export class MovieModule {}
