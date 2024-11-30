@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { Movie } from '../../domain/movie.entity';
 import { MovieRepository } from '@/infra/repositories/movie.repository';
 import { MovieFetcher } from '@/infra/fetchers/movie.fetcher';
 import { CreateMovieDto } from './dto/create-movie.dto';
@@ -7,6 +6,9 @@ import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
 import { NotFoundException } from '@/common/exceptions/not-found.exception';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { MovieTransformer } from './transformers/movie.transformer';
+import { MovieResponse } from './dto/response/movie-response.interface';
+import { MovieListResponse } from './dto/response/movie-list-response.interface';
 
 @Injectable()
 export class MovieService {
@@ -15,7 +17,7 @@ export class MovieService {
     private readonly movieFetcher: MovieFetcher,
   ) {}
 
-  async createMovie(createMovieDto: CreateMovieDto): Promise<Movie> {
+  async createMovie(createMovieDto: CreateMovieDto): Promise<MovieResponse> {
     const { title, notes } = createMovieDto;
 
     const omdbData = await this.movieFetcher.getMovieDetails(title);
@@ -29,7 +31,7 @@ export class MovieService {
       notes,
     });
 
-    return movie;
+    return MovieTransformer.toResponse(movie);
   }
 
   async listMovies(
@@ -37,26 +39,33 @@ export class MovieService {
     sort?: MovieSortDto,
     page: number = 1,
     limit: number = 5,
-  ): Promise<Movie[]> {
+  ): Promise<MovieListResponse> {
     const offset = (page - 1) * limit;
 
-    return this.movieRepository.findMovies(filters, sort, offset, limit);
+    const [movies, total] = await this.movieRepository.findMovies(
+      filters,
+      sort,
+      offset,
+      limit,
+    );
+
+    return MovieTransformer.toListResponse(movies, total, page, limit);
   }
 
-  async getMovieById(id: number): Promise<Movie> {
+  async getMovieById(id: number): Promise<MovieResponse> {
     const movie = await this.movieRepository.findMovieById(id);
 
     if (!movie) {
       throw new NotFoundException();
     }
 
-    return movie;
+    return MovieTransformer.toResponse(movie);
   }
 
   async updateMovie(
     id: number,
     updateMovieDto: UpdateMovieDto,
-  ): Promise<Movie> {
+  ): Promise<MovieResponse> {
     const movie = await this.movieRepository.findMovieById(id);
 
     if (!movie) {
@@ -65,7 +74,8 @@ export class MovieService {
 
     Object.assign(movie, updateMovieDto);
 
-    return this.movieRepository.saveMovie(movie);
+    const updatedMovie = await this.movieRepository.saveMovie(movie);
+    return MovieTransformer.toResponse(updatedMovie);
   }
 
   async deleteMovie(id: number): Promise<void> {

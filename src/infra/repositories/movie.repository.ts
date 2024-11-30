@@ -15,7 +15,7 @@ export class MovieRepository {
     sort?: MovieSortDto,
     offset?: number,
     limit?: number,
-  ): Promise<Movie[]> {
+  ): Promise<[Movie[], number]> {
     const query = this.movieRepository.createQueryBuilder('movie');
 
     if (filters?.title) {
@@ -42,7 +42,8 @@ export class MovieRepository {
       query.skip(offset).take(limit);
     }
 
-    return query.getMany();
+    const [movies, total] = await query.getManyAndCount();
+    return [movies, total];
   }
 
   async saveMovie(movieData: Partial<Movie>): Promise<Movie> {

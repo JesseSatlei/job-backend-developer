@@ -22,6 +22,8 @@ import { MovieFiltersDto } from './dto/movie-filters.dto';
 import { MovieSortDto } from './dto/movie-sort.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { PaginationDto } from './dto/pagination.dto';
+import { MovieResponse } from './dto/response/movie-response.interface';
+import { MovieListResponse } from './dto/response/movie-list-response.interface';
 
 @ApiTags('Movies')
 @Controller('movie-reviews')
@@ -35,14 +37,16 @@ export class MovieController {
   })
   @ApiCreatedResponse({
     description: 'Anotação de filme criada com sucesso.',
-    type: CreateMovieDto,
+    type: MovieResponse,
   })
   @ApiResponse({
     status: 400,
     description: 'Os dados enviados são inválidos.',
   })
   @Post()
-  async createMovie(@Body() createMovieDto: CreateMovieDto) {
+  async createMovie(
+    @Body() createMovieDto: CreateMovieDto,
+  ): Promise<MovieResponse> {
     return await this.movieService.createMovie(createMovieDto);
   }
 
@@ -50,6 +54,10 @@ export class MovieController {
     summary: 'Lista as anotações de filmes com filtros e ordenação',
     description:
       'Permite listar as anotações de filmes com filtros e ordenação.',
+  })
+  @ApiOkResponse({
+    description: 'Anotação de filme encontrada.',
+    type: MovieListResponse,
   })
   @ApiResponse({
     status: 400,
@@ -60,7 +68,7 @@ export class MovieController {
     @Query() filters: MovieFiltersDto,
     @Query() sort: MovieSortDto,
     @Query() pagination: PaginationDto,
-  ) {
+  ): Promise<MovieListResponse> {
     const { page, limit } = pagination;
 
     return this.movieService.listMovies(filters, sort, page, limit);
@@ -73,7 +81,7 @@ export class MovieController {
   })
   @ApiOkResponse({
     description: 'Anotação de filme encontrada.',
-    type: CreateMovieDto,
+    type: MovieResponse,
   })
   @ApiResponse({
     status: 404,
@@ -84,7 +92,9 @@ export class MovieController {
     description: 'O ID fornecido é inválido.',
   })
   @Get(':id')
-  async getMovieById(@Param('id', ParseIntPipe) id: number) {
+  async getMovieById(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<MovieResponse> {
     return this.movieService.getMovieById(id);
   }
 
@@ -95,7 +105,7 @@ export class MovieController {
   })
   @ApiOkResponse({
     description: 'Anotação de filme atualizada com sucesso.',
-    type: UpdateMovieDto,
+    type: MovieResponse,
   })
   @ApiResponse({
     status: 404,
@@ -109,7 +119,7 @@ export class MovieController {
   async updateMovie(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateMovieDto: UpdateMovieDto,
-  ) {
+  ): Promise<MovieResponse> {
     return await this.movieService.updateMovie(id, updateMovieDto);
   }
 
