@@ -36,4 +36,8 @@ export class MovieService {
   ): Promise<Movie[]> {
     return this.movieRepository.findMovies(filters, sort);
   }
+
+  async getMovieById(id: number): Promise<Movie> {
+    return this.movieRepository.findMovieById(id);
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -35,5 +35,15 @@ export class MovieController {
     @Query() sort: MovieSortDto,
   ) {
     return this.movieService.listMovies(filters, sort);
+  }
+
+  @ApiOperation({
+    summary: 'Lista uma anotação de filme específica',
+    description:
+      'Permite listar uma anotação de filme específica com base no ID fornecido.',
+  })
+  @Get(':id')
+  async getMovieById(@Param('id') id: number) {
+    return this.movieService.getMovieById(id);
   }
 }

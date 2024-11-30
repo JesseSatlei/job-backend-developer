@@ -43,4 +43,8 @@ export class MovieRepository {
     const movie = this.movieRepository.create(movieData);
     return this.movieRepository.save(movie);
   }
+
+  async findMovieById(id: number): Promise<Movie> {
+    return this.movieRepository.findOne({ where: { id } });
+  }
 }
