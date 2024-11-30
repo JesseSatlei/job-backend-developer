@@ -1,7 +1,9 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { ApiCreatedResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { MovieFiltersDto } from './dto/movie-filters.dto';
+import { MovieSortDto } from './dto/movie-sort.dto';
 
 @ApiTags('Movies')
 @Controller('movie-reviews')
@@ -18,7 +20,20 @@ export class MovieController {
     type: CreateMovieDto,
   })
   @Post()
-  async createMovie(@Body() createMovieDto: CreateMovieDto): Promise<any> {
+  async createMovie(@Body() createMovieDto: CreateMovieDto) {
     return await this.movieService.createMovie(createMovieDto);
+  }
+
+  @ApiOperation({
+    summary: 'Lista as anotações de filmes com filtros e ordenação',
+    description:
+      'Permite listar as anotações de filmes com filtros e ordenação.',
+  })
+  @Get()
+  async listMovies(
+    @Query() filters: MovieFiltersDto,
+    @Query() sort: MovieSortDto,
+  ) {
+    return this.movieService.listMovies(filters, sort);
   }
 }
