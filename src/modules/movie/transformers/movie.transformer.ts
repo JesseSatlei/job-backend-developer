@@ -1,6 +1,6 @@
-import { Movie } from '@/domain/movie.entity';
 import { MovieResponse } from '../dto/response/movie-response.interface';
 import { MovieListResponse } from '../dto/response/movie-list-response.interface';
+import { Movie } from '@domain/movie.entity';
 
 export class MovieTransformer {
   static toResponse(movie: Movie): MovieResponse {

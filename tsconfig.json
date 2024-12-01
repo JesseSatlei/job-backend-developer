@@ -10,7 +10,7 @@
     "sourceMap": true,
     "pretty": true,
     "outDir": "./dist",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -19,7 +19,10 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@/*": ["./*"]
+      "@common/*": ["common/*"],
+      "@domain/*": ["domain/*"],
+      "@infra/*": ["infra/*"],
+      "@modules/*": ["modules/*"]
     }
   }
 }

@@ -1,15 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { MovieRepository } from '@/infra/repositories/movie.repository';
-import { MovieFetcher } from '@/infra/fetchers/movie.fetcher';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { MovieFiltersDto } from './dto/movie-filters.dto';
-import { MovieSortDto } from './dto/movie-sort.dto';
-import { NotFoundException } from '@/common/exceptions/not-found.exception';
-import { UpdateMovieDto } from './dto/update-movie.dto';
-import { MovieTransformer } from './transformers/movie.transformer';
+import { MovieRepository } from '@infra/repositories/movie.repository';
+import { MovieFetcher } from '@infra/fetchers/movie.fetcher';
+import { CreateMovieDto } from './dto/request/create-movie.dto';
+import { MovieFiltersDto } from './dto/request/movie-filters.dto';
+import { MovieSortDto } from './dto/request/movie-sort.dto';
+import { NotFoundException } from '@common/exceptions/not-found.exception';
+import { UpdateMovieDto } from './dto/request/update-movie.dto';
 import { MovieResponse } from './dto/response/movie-response.interface';
 import { MovieListResponse } from './dto/response/movie-list-response.interface';
-import { AppLogger } from '@/common/services/logger.service';
+import { AppLogger } from '@common/services/logger.service';
+import { MovieTransformer } from './transformers';
 
 @Injectable()
 export class MovieService {

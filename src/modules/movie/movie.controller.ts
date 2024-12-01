@@ -12,7 +12,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { MovieService } from './movie.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
+import { CreateMovieDto } from './dto/request/create-movie.dto';
 import {
   ApiCreatedResponse,
   ApiOkResponse,
@@ -20,12 +20,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { MovieFiltersDto } from './dto/movie-filters.dto';
-import { MovieSortDto } from './dto/movie-sort.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
-import { PaginationDto } from './dto/pagination.dto';
-import { MovieResponse } from './dto/response/movie-response.interface';
-import { MovieListResponse } from './dto/response/movie-list-response.interface';
+import {
+  MovieFiltersDto,
+  MovieSortDto,
+  PaginationDto,
+  UpdateMovieDto,
+} from './dto/request';
+import { MovieListResponse, MovieResponse } from './dto/response';
 
 @ApiTags('Movies')
 @Controller('movie-reviews')

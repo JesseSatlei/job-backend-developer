@@ -1,8 +1,8 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { OmdbProvider } from '../providers/omdb.provider';
-import { AppLogger } from '@/common/services/logger.service';
-import { ErrorHandlerService } from '@/common/services/error-handler.service';
-import { ERROR_MESSAGES } from '@/common/constants/error-messages';
+import { AppLogger } from '@common/services/logger.service';
+import { ErrorHandlerService } from '@common/services/error-handler.service';
+import { ERROR_MESSAGES } from '@common/constants/error-messages';
+import { OmdbProvider } from '@infra/providers/omdb.provider';
 
 @Injectable()
 export class MovieFetcher {

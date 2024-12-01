@@ -4,7 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { HealthCheckModule } from './modules/health-check/health-check.module';
 import { MovieModule } from './modules/movie/movie.module';
 import { AppLogger } from './common/services/logger.service';
-import { ErrorHandlerService } from './common/services/error-handler.service';
+import { ErrorHandlerService } from '@common/services/error-handler.service';
 
 @Module({
   imports: [

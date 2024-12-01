@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { HttpStatus } from '@nestjs/common';
 import * as request from 'supertest';
-import { MovieController } from '@/modules/movie/movie.controller';
-import { MovieService } from '@/modules/movie/movie.service';
-import { CreateMovieDto } from '@/modules/movie/dto/create-movie.dto';
-import { UpdateMovieDto } from '@/modules/movie/dto/update-movie.dto';
+import { MovieController } from '@modules/movie/movie.controller';
+import { MovieService } from '@modules/movie/movie.service';
+import { CreateMovieDto } from '@modules/movie/dto/request/create-movie.dto';
+import { UpdateMovieDto } from '@modules/movie/dto/request/update-movie.dto';
 
 describe('MovieController', () => {
   let app;

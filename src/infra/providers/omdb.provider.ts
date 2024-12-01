@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { AppLogger } from '@/common/services/logger.service';
-import { ErrorHandlerService } from '@/common/services/error-handler.service';
+import { AppLogger } from '@common/services/logger.service';
+import { ErrorHandlerService } from '@common/services/error-handler.service';
 
 @Injectable()
 export class OmdbProvider {

@@ -1,6 +1,6 @@
 import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { AppLogger } from './logger.service';
-import { ERROR_MESSAGES } from '../constants/error-messages';
+import { ERROR_MESSAGES } from '@common/constants/error-messages';
 
 @Injectable()
 export class ErrorHandlerService {

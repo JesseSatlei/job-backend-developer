@@ -1,4 +1,4 @@
-import { Movie } from '@/domain/movie.entity';
+import { Movie } from '@domain/movie.entity';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 

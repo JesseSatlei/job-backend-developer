@@ -1,8 +1,8 @@
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Movie } from '../../domain/movie.entity';
-import { MovieFiltersDto } from '@/modules/movie/dto/movie-filters.dto';
-import { MovieSortDto } from '@/modules/movie/dto/movie-sort.dto';
+import { MovieFiltersDto } from '@modules/movie/dto/request/movie-filters.dto';
+import { MovieSortDto } from '@modules/movie/dto/request/movie-sort.dto';
+import { Movie } from '@domain/movie.entity';
 
 export class MovieRepository {
   constructor(

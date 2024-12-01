@@ -1,5 +1,5 @@
+import { ERROR_MESSAGES } from '@common/constants/error-messages';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { ERROR_MESSAGES } from '../constants/error-messages';
 
 export class NotFoundException extends HttpException {
   constructor(message: string = ERROR_MESSAGES.NOT_FOUND.message) {

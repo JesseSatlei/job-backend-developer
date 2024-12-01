@@ -4,7 +4,10 @@
     "outDir": "./dist",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./*"]
+      "@common/*": ["common/*"],
+      "@domain/*": ["domain/*"],
+      "@infra/*": ["infra/*"],
+      "@modules/*": ["modules/*"]
     }
   },
   "include": ["src/**/*"],
