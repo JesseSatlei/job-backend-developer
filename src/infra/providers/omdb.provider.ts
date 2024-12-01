@@ -1,7 +1,8 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { ERROR_MESSAGES } from '@/common/constants/error-messages';
+import { AppLogger } from '@/common/services/logger.service';
+import { ErrorHandlerService } from '@/common/services/error-handler.service';
 
 @Injectable()
 export class OmdbProvider {
@@ -9,53 +10,38 @@ export class OmdbProvider {
   private readonly baseUrl =
     process.env.OMDB_BASE_URL || 'http://www.omdbapi.com/';
 
-  constructor(private readonly httpService: HttpService) {}
+  constructor(
+    private readonly httpService: HttpService,
+    private readonly logger: AppLogger,
+    private readonly errorHandler: ErrorHandlerService,
+  ) {}
 
   async fetchMovieData(title: string): Promise<any> {
     const url = `${this.baseUrl}?apikey=${this.apiKey}&t=${encodeURIComponent(title)}`;
+    this.logger.log(`Calling OMDB API for: ${title}`, 'OmdbProvider');
+
     try {
       const response = await firstValueFrom(this.httpService.get(url));
 
       if (response.status !== 200) {
-        throw this.createOmdbException(response.status);
+        this.errorHandler.handleErrorByCode('NOT_FOUND', 'OmdbProvider');
       }
 
       if (response.data && response.data.Response === 'True') {
+        this.logger.log(`OMDB API returned data for: ${title}`, 'OmdbProvider');
         return response.data;
       } else {
-        throw this.createOmdbException(response.data?.Error);
+        this.errorHandler.handleError(
+          response.data?.Error || 'Unknown error from OMDB',
+          400,
+          'OmdbProvider',
+        );
       }
     } catch (error) {
-      if (error?.response?.status) {
-        throw this.createOmdbException(error.response.status);
-      } else {
-        throw this.createOmdbException(500);
-      }
-    }
-  }
+      const status = error?.response?.status || 500;
+      const message = error?.response?.data?.Error || 'Internal error';
 
-  private createOmdbException(statusCode: number): HttpException {
-    switch (statusCode) {
-      case 404:
-        return new HttpException(
-          ERROR_MESSAGES.NOT_FOUND.message,
-          ERROR_MESSAGES.NOT_FOUND.statusCode,
-        );
-      case 403:
-        return new HttpException(
-          ERROR_MESSAGES.INVALID_API_KEY.message,
-          ERROR_MESSAGES.INVALID_API_KEY.statusCode,
-        );
-      case 400:
-        return new HttpException(
-          ERROR_MESSAGES.TOO_MANY_RESULTS.message,
-          ERROR_MESSAGES.TOO_MANY_RESULTS.statusCode,
-        );
-      default:
-        return new HttpException(
-          ERROR_MESSAGES.GENERIC_ERROR.message,
-          ERROR_MESSAGES.GENERIC_ERROR.statusCode,
-        );
+      this.errorHandler.handleError(message, status, 'OmdbProvider');
     }
   }
 }
