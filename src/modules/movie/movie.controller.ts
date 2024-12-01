@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpCode,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Post,
@@ -136,7 +138,8 @@ export class MovieController {
     description: 'Filme não encontrado.',
   })
   @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
   async deleteMovie(@Param('id', ParseIntPipe) id: number) {
-    return await this.movieService.deleteMovie(id);
+    await this.movieService.deleteMovie(id);
   }
 }
