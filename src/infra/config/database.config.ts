@@ -6,7 +6,7 @@ config();
 
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'mysql',
-  host: process.env.MYSQLDB_HOST || 'localhost',
+  host: process.env.MYSQLDB_HOST || 'mysql-db',
   port: parseInt(process.env.MYSQLDB_PORT, 10) || 3306,
   username: process.env.MYSQLDB_USER || 'root',
   password: process.env.MYSQLDB_PASSWORD || 'senha_root_123',
