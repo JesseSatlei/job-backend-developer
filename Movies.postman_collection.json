@@ -1,0 +1,432 @@
+{
+	"info": {
+		"_postman_id": "fae19294-cee5-4b39-8c3d-c8815c5ecdbe",
+		"name": "Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8513903"
+	},
+	"item": [
+		{
+			"name": "Local",
+			"item": [
+				{
+					"name": "Criar Anotações",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God of War\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/movie-reviews",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movie-reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Anotações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/movie-reviews/list?page=1&limit=3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movie-reviews",
+								"list"
+							],
+							"query": [
+								{
+									"key": "director",
+									"value": "Gordon Chan",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "rating",
+									"disabled": true
+								},
+								{
+									"key": "actors",
+									"value": "Wenzhuo",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Anotações Uma",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/movie-reviews/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Uma anotação",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\",\r\n    \"rating\": 1234\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/movie-reviews/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar uma Anotação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/movie-reviews/:id",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cloud",
+			"item": [
+				{
+					"name": "Criar Anotações",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"God of War\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://job-backend-developer.onrender.com/movie-reviews",
+							"protocol": "https",
+							"host": [
+								"job-backend-developer",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"movie-reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Anotações",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://job-backend-developer.onrender.com/movie-reviews/list?page=1&limit=3",
+							"protocol": "https",
+							"host": [
+								"job-backend-developer",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"movie-reviews",
+								"list"
+							],
+							"query": [
+								{
+									"key": "director",
+									"value": "Gordon Chan",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "field",
+									"value": "rating",
+									"disabled": true
+								},
+								{
+									"key": "actors",
+									"value": "Wenzhuo",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Anotações Uma",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://job-backend-developer.onrender.com/movie-reviews/:id",
+							"protocol": "https",
+							"host": [
+								"job-backend-developer",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "111"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Uma anotação",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\",\r\n    \"rating\": 1234\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://job-backend-developer.onrender.com/movie-reviews/:id",
+							"protocol": "https",
+							"host": [
+								"job-backend-developer",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deletar uma Anotação",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"título é o que será usado para buscar as demais informações no OMDB\",\r\n    \"notes\": \"minhas anotações\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://job-backend-developer.onrender.com/movie-reviews/:id",
+							"protocol": "https",
+							"host": [
+								"job-backend-developer",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"movie-reviews",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OMDB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://www.omdbapi.com/?apikey=bc0880e2&t=assassins%2Bcreed",
+					"protocol": "http",
+					"host": [
+						"www",
+						"omdbapi",
+						"com"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "apikey",
+							"value": "bc0880e2"
+						},
+						{
+							"key": "t",
+							"value": "assassins%2Bcreed"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

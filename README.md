@@ -5,7 +5,11 @@ Bem-vindo ao repositório da **Movie Reviews API**, um projeto desenvolvido como
 
 ---
 
-## 🛠️ **Instruções para execução**
+## 🛠️ **Instruções para execução pelo Postman**
+- Realize a importação do arquivo Movies.postman_collection.json no Postman
+- Ele já vira com todas as rotas disponibilizadas
+
+## 🛠️ **Instruções para execução Localmente**
 
 ### **Pré-requisitos**
 - [Node.js](https://nodejs.org/) (v16 ou superior)
